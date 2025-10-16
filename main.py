@@ -23,7 +23,6 @@ app.add_middleware(
     allow_methods=["*"],                
     allow_headers=["*"],                
 )
-app = FastAPI()
 
 def extract_value(text):
     padrao = r"(?:R\$\s*)?\d{1,3}(?:[\.\s]?\d{3})*(?:[.,]\d{2})?"
