@@ -14,6 +14,7 @@ app = FastAPI()
 origins = [
     "http://127.0.0.1:5500",  # ✅ Seu servidor local
     "http://localhost:5500",  # ✅ Variação de localhost
+    "https://testeet.netlify.app"
 ]
 
 app.add_middleware(
