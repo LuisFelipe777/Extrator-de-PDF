@@ -1,28 +1,20 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 import pdfplumber
 import pandas as pd
 import re
 from io import BytesIO
 
-
-from fastapi.middleware.cors import CORSMiddleware
-# ...
-
 app = FastAPI()
 
-origins = [
-    "http://127.0.0.1:5500",  # ✅ Seu servidor local
-    "http://localhost:5500",  # ✅ Variação de localhost
-    "https://testeet.netlify.app/"
-]
-
+# 🔧 TESTE TEMPORÁRIO: liberar todas as origens para confirmar que é CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,              
-    allow_credentials=True,             
-    allow_methods=["*"],                
-    allow_headers=["*"],                
+    allow_origins=["*"],  # ← deixe assim só para testar
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 def extract_value(text):
@@ -44,6 +36,7 @@ def process_pdf(file_bytes):
                 for linha in table_clear.split("\n"):
                     if ("200 - PAGTO") in linha or ("707 - BX") in linha:
                         dados.append([linha.split(" ")[10], linha.split(" ")[1], extract_value(linha.split(" ")[11])])
+
     for page in pages:
         extract_table(page)
 
@@ -75,6 +68,7 @@ async def processar_pdf(file: UploadFile = File(...)):
     return StreamingResponse(
         excel_file,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": "attachment; filename=relatorio.xlsx",
-                 }
+        headers={
+            "Content-Disposition": "attachment; filename=relatorio.xlsx"
+        }
     )
