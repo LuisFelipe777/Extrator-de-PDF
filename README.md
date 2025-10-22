@@ -17,7 +17,7 @@
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/ErikPervious/BlogApp-Insider
+$ git clone https://github.com/LuisFelipe777/Extrator-de-PDF
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd EXTRAÇÂO-PDF
