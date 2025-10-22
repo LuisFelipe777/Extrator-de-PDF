@@ -8,10 +8,9 @@ from io import BytesIO
 
 app = FastAPI()
 
-# 🔧 TESTE TEMPORÁRIO: liberar todas as origens para confirmar que é CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ← deixe assim só para testar
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
